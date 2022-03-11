@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Bitacoratiempos */
 
-$this->title = Yii::t('app', 'Create Bitacoratiempos');
+$this->title = Yii::t('app', 'Crear Bitacoratiempos');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Bitacoratiempos'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
