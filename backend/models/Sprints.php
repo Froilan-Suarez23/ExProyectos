@@ -35,7 +35,7 @@ class Sprints extends \yii\db\ActiveRecord
     {
         return [
             [['FechaInicio', 'FechaFinal'], 'safe'],
-            [['FechaInicio', 'FechaFinal'],'date','format'=>'yyyy-MM-dd'],
+            [['FechaInicio', 'FechaFinal'],'date','format'=>'dd-MM-yyyy'],
             [['FechaInicio'],'required', 'message'=>'Fecha de Inicio no puede estar vacío.'],
             [['FechaFinal'],'required', 'message'=>'Fecha de Final no puede estar vacío.'],
             [['NombreSprints'],'required', 'message'=>'Nombre Sprint no puede estar vacío.'],
@@ -70,8 +70,8 @@ class Sprints extends \yii\db\ActiveRecord
     public function beforeSave($insert){
        
        
-        $this->FechaInicio =date_format(date_create_from_format('Y-m-d', $this->FechaInicio), 'Y-m-d');
-        $this->FechaFinal =date_format(date_create_from_format('Y-m-d', $this->FechaFinal), 'Y-m-d');
+        $this->FechaInicio =date_format(date_create_from_format('d-m-Y', $this->FechaInicio), 'd-m-Y');
+        $this->FechaFinal =date_format(date_create_from_format('d-m-Y', $this->FechaFinal), 'd-m-Y');
         
         return true;
     }

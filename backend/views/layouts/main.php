@@ -39,14 +39,19 @@ AppAsset::register($this);
     }else {
         $menuItems = [
                 ['label' => 'Inicio', 'url' => ['/site/index']],
+               // ['label' => 'Admin', 'url' => ['/user/admin']],
                 ['label' => 'Catálogos',
                     'items' => [
                         ['label' => 'Proyectos', 'url' => ['/proyectos/index']],
                         ['label' => 'Sprints', 'url' => ['/sprints/index']],
                         ['label' => 'Historias', 'url' => ['/historias/index']],
+                        ['label' => 'Actividades', 'url' => ['/actividades/index']],
                     ],
                 ],
-                ['label' => 'Bitacora de Tiempo', 'url' => ['/bitacoratiempos/index']],
+                ['label' => 'Bitácora de Tiempo', 'url' => ['/bitacoratiempos/index']],
+                ['label' => 'Bitácora de Defectos', 'url' => ['/bitacoradefectos/index']],
+                ['label' => 'Cargar Archivo', 'url' => ['/site/upload']],
+                
             ];
             
              

@@ -46,6 +46,11 @@ class Proyectos extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getActividades()
+    {
+        return $this->hasMany(Actividades::className(), ['idProyecto' => 'idProyecto']);
+    }
+
     public function beforeSave($insert)
     {
         parent::beforeSave($insert);

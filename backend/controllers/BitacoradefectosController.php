@@ -2,18 +2,18 @@
 
 namespace backend\controllers;
 
-use yii;
-use backend\models\Historias;
-use backend\models\search\HistoriasSearch;
+use backend\models\Bitacoradefectos;
+use backend\models\search\BitacoradefectosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 use yii\filters\AccessControl;
 
 /**
- * HistoriasController implements the CRUD actions for Historias model.
+ * BitacoradefectosController implements the CRUD actions for Bitacoradefectos model.
  */
-class HistoriasController extends Controller
+class BitacoradefectosController extends Controller
 {
     /**
      * @inheritDoc
@@ -45,13 +45,13 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Lists all Historias models.
+     * Lists all Bitacoradefectos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new HistoriasSearch();
+        $searchModel = new BitacoradefectosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -61,26 +61,26 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Displays a single Historias model.
-     * @param int $idHistoria Id Historia
+     * Displays a single Bitacoradefectos model.
+     * @param int $idBitacoraDefecto Id Bitacora Defecto
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idHistoria)
+    public function actionView($idBitacoraDefecto)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idHistoria),
+            'model' => $this->findModel($idBitacoraDefecto),
         ]);
     }
 
     /**
-     * Creates a new Historias model.
+     * Creates a new Bitacoradefectos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Historias();
+        $model = new Bitacoradefectos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -96,18 +96,18 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Updates an existing Historias model.
+     * Updates an existing Bitacoradefectos model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idBitacoraDefecto Id Bitacora Defecto
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idHistoria)
+    public function actionUpdate($idBitacoraDefecto)
     {
-        $model = $this->findModel($idHistoria);
+        $model = $this->findModel($idBitacoraDefecto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['index',]);
         }
 
         return $this->render('update', [
@@ -116,29 +116,29 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Deletes an existing Historias model.
+     * Deletes an existing Bitacoradefectos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idBitacoraDefecto Id Bitacora Defecto
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idHistoria)
+    public function actionDelete($idBitacoraDefecto)
     {
-        $this->findModel($idHistoria)->delete();
+        $this->findModel($idBitacoraDefecto)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Historias model based on its primary key value.
+     * Finds the Bitacoradefectos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idHistoria Id Historia
-     * @return Historias the loaded model
+     * @param int $idBitacoraDefecto Id Bitacora Defecto
+     * @return Bitacoradefectos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idHistoria)
+    protected function findModel($idBitacoraDefecto)
     {
-        if (($model = Historias::findOne(['idHistoria' => $idHistoria])) !== null) {
+        if (($model = Bitacoradefectos::findOne(['idBitacoraDefecto' => $idBitacoraDefecto])) !== null) {
             return $model;
         }
 

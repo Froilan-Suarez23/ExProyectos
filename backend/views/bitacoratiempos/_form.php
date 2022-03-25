@@ -55,9 +55,17 @@ use yii\jui\DatePicker;
     
 
     
-    <?= $form->field($model, 'idEtapa')->dropDownList(ArrayHelper::map(Etapas::find()->all(),'idEtapa','NombreEtapa'),
-
-    ['prompt'=>'Seleccionar su etapa... ']) ?>
+    <?php 
+        $etapa = ArrayHelper::map(Etapas::find()->where(['Activo' => 1])->orderBy('NombreEtapa')->all(), 'idEtapa', 'NombreEtapa');
+        echo $form->field($model, 'idEtapa')->widget(Select2::classname(), [
+            'data' => $etapa,
+            'language' => 'es',
+            'options' => ['placeholder' => 'seleccione un etapa...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
 
     <?= $form->field($model, 'Descripcion')->textInput(['maxlength' => true]) ?>
 

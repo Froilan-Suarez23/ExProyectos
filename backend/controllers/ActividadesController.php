@@ -3,17 +3,17 @@
 namespace backend\controllers;
 
 use yii;
-use backend\models\Historias;
-use backend\models\search\HistoriasSearch;
+use backend\models\Actividades;
+use backend\models\search\ActividadesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 /**
- * HistoriasController implements the CRUD actions for Historias model.
+ * ActividadesController implements the CRUD actions for Actividades model.
  */
-class HistoriasController extends Controller
+class ActividadesController extends Controller
 {
     /**
      * @inheritDoc
@@ -34,6 +34,7 @@ class HistoriasController extends Controller
                         
                     ],
                 ],
+               
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -45,13 +46,13 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Lists all Historias models.
+     * Lists all Actividades models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new HistoriasSearch();
+        $searchModel = new ActividadesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -61,26 +62,27 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Displays a single Historias model.
-     * @param int $idHistoria Id Historia
+     * Displays a single Actividades model.
+     * @param int $idActividad Id Actividad
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idHistoria)
+    public function actionView($idActividad)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idHistoria),
+            'model' => $this->findModel($idActividad),
         ]);
     }
 
     /**
-     * Creates a new Historias model.
+     * Creates a new Actividades model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Historias();
+        $model = new Actividades();
+        $bandera = true;
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -92,19 +94,21 @@ class HistoriasController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'bandera' => $bandera,
         ]);
     }
 
     /**
-     * Updates an existing Historias model.
+     * Updates an existing Actividades model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idActividad Id Actividad
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idHistoria)
+    public function actionUpdate($idActividad)
     {
-        $model = $this->findModel($idHistoria);
+        $model = $this->findModel($idActividad);
+        $bandera = true;
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['index']);
@@ -112,33 +116,82 @@ class HistoriasController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'bandera' => $bandera,
         ]);
     }
 
+    public function actionCreateConProyecto($idProyecto)
+    {
+        $model = new Actividades();
+        $model->idProyecto = $idProyecto;
+        $bandera = false;
+
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['/proyectos/update', 'idProyecto' =>$idProyecto]);
+            
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+                'bandera' => $bandera,
+            ]);
+        }
+
+        
+    }
+
+    public function actionUpdateConProyecto($idProyecto)
+    {
+        $bandera =false;
+        $model = $this->findModel($idProyecto);
+        
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+             return $this->redirect(['/proyectos/update', 'idProyecto' => $model->idProyecto]);
+        } 
+        return $this->render('update', [
+            'model' => $model,
+            'bandera' => $bandera,
+        ]);
+
+        
+    }
+
     /**
-     * Deletes an existing Historias model.
+     * Deletes an existing Actividades model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idActividad Id Actividad
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idHistoria)
+    public function actionDelete($idActividad)
     {
-        $this->findModel($idHistoria)->delete();
+        $this->findModel($idActividad)->delete();
 
         return $this->redirect(['index']);
     }
 
+    public function actionDeleteConProyecto($idActividad)
+    {
+        $model = $this->findModel($idActividad);
+
+        $idProyecto = $model->idProyecto;
+
+        $model->delete();
+
+        return $this->redirect(['/proyectos/update', 'idProyecto' => $idProyecto]);
+    }
+
     /**
-     * Finds the Historias model based on its primary key value.
+     * Finds the Actividades model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idHistoria Id Historia
-     * @return Historias the loaded model
+     * @param int $idActividad Id Actividad
+     * @return Actividades the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idHistoria)
+    protected function findModel($idActividad)
     {
-        if (($model = Historias::findOne(['idHistoria' => $idHistoria])) !== null) {
+        if (($model = Actividades::findOne(['idActividad' => $idActividad])) !== null) {
             return $model;
         }
 

@@ -3,9 +3,9 @@
 use yii\db\Migration;
 
 /**
- * Class m220309_190247_catalogo
+ * Class m220319_195757_catalogo
  */
-class m220309_190247_catalogo extends Migration
+class m220319_195757_catalogo extends Migration
 {
     /**
      * {@inheritdoc}
@@ -71,12 +71,50 @@ class m220309_190247_catalogo extends Migration
             'Activo' => $this->boolean(),
         ], $tableOptions);
 
+        $this->createTable('{{%Etaparemovido}}', [
+            'idEtaparr' => $this->primaryKey(),
+            'NombreEtapa' => $this->string(200)->unique(),
+            'Activo' => $this->boolean(),
+        ], $tableOptions);
+
+        $this->createTable('{{%Defectos}}', [
+            'idDefecto' => $this->primaryKey(),
+            'NombreDefecto' => $this->string(200)->unique(),
+            'Activo' => $this->boolean(),
+        ], $tableOptions);
+
+
+
+        $this->createTable('{{%Actividades}}', [
+            'idActividad' => $this->primaryKey(),
+            'NombreActividad' => $this->string(200)->unique(),
+            'Descripcion' => $this->string(250),
+            'Activo' => $this->boolean(), 
+            'idProyecto' =>$this->integer()
+        ], $tableOptions);
+
+        $this->createTable('{{%Bitacoradefectos}}', [
+            'idBitacoraDefecto' => $this->primaryKey(),
+            'Descripcion' => $this->string(250),
+            'FechaCaptura' =>$this->date(),
+            'Hora' => $this->float(),
+            'idEtapa' =>$this->integer(),
+            'idEtaparr' =>$this->integer(),
+            'idProyecto' =>$this->integer(),
+            'idDefecto' =>$this->integer()
+        ], $tableOptions);
+
         $this->addForeignKey('FK_spri_proy', 'Sprints', 'idProyecto', 'Proyectos', 'idProyecto');
         $this->addForeignKey('FK_hist_proy', 'Historias', 'idProyecto', 'Proyectos', 'idProyecto');
         $this->addForeignKey('FK_hist_spri', 'Historias', 'idSprints', 'Sprints', 'idSprints');
         $this->addForeignKey('FK_bitt_proy', 'Bitacoratiempos', 'idProyecto', 'Proyectos', 'idProyecto');
         $this->addForeignKey('FK_bitt_hist', 'Bitacoratiempos', 'idHistoria', 'Historias', 'idHistoria');
         $this->addForeignKey('FK_bitt_etap', 'Bitacoratiempos', 'idEtapa', 'Etapas', 'idEtapa');
+        $this->addForeignKey('FK_act_proy', 'Actividades', 'idProyecto', 'Proyectos', 'idProyecto');
+        $this->addForeignKey('FK_bit_proy', 'Bitacoradefectos', 'idProyecto', 'Proyectos', 'idProyecto');
+        $this->addForeignKey('FK_bit_etap', 'Bitacoradefectos', 'idEtapa', 'Etapas', 'idEtapa');
+        $this->addForeignKey('FK_bit_etrr', 'Bitacoradefectos', 'idEtaparr', 'Etaparemovido', 'idEtaparr');
+        $this->addForeignKey('FK_bit_defe', 'Bitacoradefectos', 'idDefecto', 'Defectos', 'idDefecto');
 
 
     }
@@ -92,11 +130,20 @@ class m220309_190247_catalogo extends Migration
         $this->dropForeignKey('FK_bitt_proy', 'Bitacoratiempos');
         $this->dropForeignKey('FK_bitt_hist', 'Bitacoratiempos');
         $this->dropForeignKey('FK_bitt_etap', 'Bitacoratiempos');
+        $this->dropForeignKey('FK_act_proy', 'Actividades');
+        $this->dropForeignKey('FK_bit_proy', 'Bitacoradefectos');
+        $this->dropForeignKey('FK_bit_etap', 'Bitacoradefectos');
+        $this->dropForeignKey('FK_bit_etrr', 'Bitacoradefectos');
+        $this->dropForeignKey('FK_bit_defe', 'Bitacoradefectos');
         $this->dropTable('{{%Proyectos}}');
         $this->dropTable('{{%Sprints}}');
         $this->dropTable('{{%Historias}}');
         $this->dropTable('{{%Bitacoratiempos}}');
         $this->dropTable('{{%Etapas}}');
+        $this->dropTable('{{%Etaparemovido}}');
+        $this->dropTable('{{%Actividades}}');
+        $this->dropTable('{{%Defectos}}');
+        $this->dropTable('{{%Bitacoradefectos}}');
     }
 
     /*
@@ -108,7 +155,7 @@ class m220309_190247_catalogo extends Migration
 
     public function down()
     {
-        echo "m220309_190247_catalogo cannot be reverted.\n";
+        echo "m220319_195757_catalogo cannot be reverted.\n";
 
         return false;
     }

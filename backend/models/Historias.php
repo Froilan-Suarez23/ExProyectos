@@ -103,4 +103,6 @@ class Historias extends \yii\db\ActiveRecord
                     ->one();
         return $num -> idHistoria + 1;
     }
+
+    
 }

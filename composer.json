@@ -21,7 +21,9 @@
         "2amigos/yii2-usuario": "^1.5",
         "yiisoft/yii2-jui": "^2.0",
         "kartik-v/yii2-widget-timepicker": "*",
-        "kartik-v/yii2-widget-select2": "@dev"
+        "kartik-v/yii2-widget-select2": "@dev",
+        "2amigos/yii2-file-input-widget": "~1.0",                       
+        "2amigos/yii2-file-upload-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -19,7 +19,7 @@ use yii\jui\DatePicker;
 
     <?=
     $form->field($model, 'FechaInicio')->widget(yii\jui\DatePicker::className(), [
-        'dateFormat' => 'yyyy-MM-dd',
+        'dateFormat' => 'dd-MM-yyyy',
         'value' => date('d/m/Y'),
         'options' => ['style' => 'position: relative; z-index: 999', 'class' => 'form-control']
     ])
@@ -27,7 +27,7 @@ use yii\jui\DatePicker;
 
     <?=
     $form->field($model, 'FechaFinal')->widget(yii\jui\DatePicker::className(), [
-        'dateFormat' => 'yyyy-MM-dd',
+        'dateFormat' => 'dd-MM-yyyy',
         'value' => date('d/m/Y'),
         'options' => ['style' => 'position: relative; z-index: 999', 'class' => 'form-control']
     ])

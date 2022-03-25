@@ -29,7 +29,7 @@ class BitacoratiemposController extends Controller
                     'class' => AccessControl::className(),
                     'rules' => [
                         [
-                            'actions'=>['index', 'view', 'create', 'delete', 'update'],
+                            'actions'=>['index', 'view', 'create', 'delete', 'update','create-con-proyecto', 'update-con-proyecto', 'delete-con-proyecto'],
                         'allow' => true,
                         'roles' => ['@'],
                         ],

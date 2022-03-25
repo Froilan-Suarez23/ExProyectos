@@ -2,18 +2,18 @@
 
 namespace backend\controllers;
 
-use yii;
-use backend\models\Historias;
-use backend\models\search\HistoriasSearch;
+use backend\models\Defectos;
+use backend\models\search\DefectosSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 use yii\filters\AccessControl;
 
 /**
- * HistoriasController implements the CRUD actions for Historias model.
+ * DefectosController implements the CRUD actions for Defectos model.
  */
-class HistoriasController extends Controller
+class DefectosController extends Controller
 {
     /**
      * @inheritDoc
@@ -27,7 +27,7 @@ class HistoriasController extends Controller
                     'class' => AccessControl::className(),
                     'rules' => [
                         [
-                            'actions'=>['index', 'view', 'create', 'delete', 'update','create-con-proyecto', 'update-con-proyecto', 'delete-con-proyecto'],
+                            'actions'=>['index', 'view', 'create', 'delete', 'update', 'create-con-proyecto', 'update-con-proyecto', 'delete-con-proyecto'],
                         'allow' => true,
                         'roles' => ['@'],
                         ],
@@ -45,13 +45,13 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Lists all Historias models.
+     * Lists all Defectos models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new HistoriasSearch();
+        $searchModel = new DefectosSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -61,30 +61,30 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Displays a single Historias model.
-     * @param int $idHistoria Id Historia
+     * Displays a single Defectos model.
+     * @param int $idDefecto Id Defecto
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($idHistoria)
+    public function actionView($idDefecto)
     {
         return $this->render('view', [
-            'model' => $this->findModel($idHistoria),
+            'model' => $this->findModel($idDefecto),
         ]);
     }
 
     /**
-     * Creates a new Historias model.
+     * Creates a new Defectos model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Historias();
+        $model = new Defectos();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['index']);
+                return $this->redirect(['view', 'idDefecto' => $model->idDefecto]);
             }
         } else {
             $model->loadDefaultValues();
@@ -96,18 +96,18 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Updates an existing Historias model.
+     * Updates an existing Defectos model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idDefecto Id Defecto
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($idHistoria)
+    public function actionUpdate($idDefecto)
     {
-        $model = $this->findModel($idHistoria);
+        $model = $this->findModel($idDefecto);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'idDefecto' => $model->idDefecto]);
         }
 
         return $this->render('update', [
@@ -116,29 +116,29 @@ class HistoriasController extends Controller
     }
 
     /**
-     * Deletes an existing Historias model.
+     * Deletes an existing Defectos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $idHistoria Id Historia
+     * @param int $idDefecto Id Defecto
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($idHistoria)
+    public function actionDelete($idDefecto)
     {
-        $this->findModel($idHistoria)->delete();
+        $this->findModel($idDefecto)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Historias model based on its primary key value.
+     * Finds the Defectos model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $idHistoria Id Historia
-     * @return Historias the loaded model
+     * @param int $idDefecto Id Defecto
+     * @return Defectos the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($idHistoria)
+    protected function findModel($idDefecto)
     {
-        if (($model = Historias::findOne(['idHistoria' => $idHistoria])) !== null) {
+        if (($model = Defectos::findOne(['idDefecto' => $idDefecto])) !== null) {
             return $model;
         }
 

@@ -8,6 +8,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use yii\web\UploadedFile;
+use backend\models\UploadForm;
 
 /**
  * Site controller
@@ -28,7 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'upload'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -89,6 +91,23 @@ class SiteController extends Controller
         return $this->render('login', [
             'model' => $model,
         ]);
+    }
+
+    public function actionUpload(){
+        $model = new UploadForm();
+
+        if(Yii::$app->request->isPost){
+            $model->excelFile = UploadedFile::getInstance($model, 'excelFile');
+            if($model->upload()){
+                return $this->goHome();
+            }
+            else {
+                return $this->render('error', ['message' => 'El archivo no pudo ser cargado o este ya existe', 'name'=>'Archivo duplicado']);
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+             
     }
 
     /**
